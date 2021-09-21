@@ -8,13 +8,17 @@ function App() {
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [activeUser, setActiveUser] = useState(null);
+  const [isDataLoading, setIsDataLoading] = useState(false);
 
   const fetchUsers = useCallback(async () => {
+    setIsDataLoading(true);
+
     try {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/users"
       );
       const data = await response.json();
+      setIsDataLoading(false);
       let usersList = [];
       for (const user of data) {
         usersList.push({
@@ -34,10 +38,12 @@ function App() {
 
   const onUserClick = useCallback(async (id) => {
     setActiveUser(id);
+    setIsDataLoading(true);
     const fetchedPosts = await fetch(
       "https://jsonplaceholder.typicode.com/posts"
     );
     const postsRes = await fetchedPosts.json();
+    setIsDataLoading(false);
     let postsList = [];
     const userPosts = postsRes.filter((post) => id === post.userId);
     for (let post of userPosts) {
@@ -58,7 +64,8 @@ function App() {
         activeUser={activeUser}
       />
       {/* display user detail */}
-      <PostsList postsList={posts} />
+      {isDataLoading && <div className={"spinner"}>Please wait, data is loading ... </div>}
+      {!isDataLoading && <PostsList postsList={posts} />}
     </div>
   );
 }
