@@ -1,6 +1,6 @@
+import styles from "./User.module.css";
+
 function User(props) {
-  return <span>
-    {props.user.name}
-  </span>
+  return <span className={styles.User}>{props.user.name}</span>;
 }
 export default User;
