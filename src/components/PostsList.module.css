@@ -1,0 +1,16 @@
+.posts{
+  margin: 50px;
+  width: 90%;
+}
+.post {
+  background-color: cornflowerblue;
+  border: 1px solid blue;
+  color: white;
+  margin: 20px;
+  width: 80%;
+}
+
+.postButton{
+  display: flex;
+  align-items: center;
+}

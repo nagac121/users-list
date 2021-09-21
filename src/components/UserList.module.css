@@ -1,9 +1,18 @@
 .user {
-  border: 1px solid blue;
   background-color: cornflowerblue;
+  border: 1px solid blue;
+  color: white;
   margin: 5px;
   padding: 5px;
 }
 .user:hover {
+  background-color: lightskyblue;
   cursor: pointer;
+}
+.activeUser {
+  background-color: tomato;
+  border: 1px solid blue;
+  color: white;
+  margin: 5px;
+  padding: 5px;
 }

@@ -6,7 +6,9 @@ function UsersList(props) {
       {props.users.map((user) => (
         <span
           key={user.id}
-          className={styles.user}
+          className={
+            props.activeUser === user.id ? styles.activeUser : styles.user
+          }
           onClick={props.userClickMethod.bind(null, user.id)}
         >
           {user.name}
