@@ -1,13 +1,18 @@
-import User from "./User";
+import styles from "./UserList.module.css";
 
 function UsersList(props) {
   return (
-    <span>
-      {props.users.map(user => (
-        <User user={user} key={user.id}/>
+    <div>
+      {props.users.map((user) => (
+        <span
+          key={user.id}
+          className={styles.user}
+          onClick={props.userClickMethod.bind(null, user.id)}
+        >
+          {user.name}
+        </span>
       ))}
-    </span>
-  )
-
+    </div>
+  );
 }
 export default UsersList;

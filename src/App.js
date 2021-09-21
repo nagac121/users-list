@@ -32,9 +32,14 @@ function App() {
     fetchUsers();
   }, [fetchUsers]);
 
+  const onUserClick = (id) => {
+    console.log("id: ", id);
+  };
+
   return (
     <div className="App">
-      <UsersList users={users} />
+      <UsersList users={users} userClickMethod={onUserClick} />
+      {/* display user detail */}
     </div>
   );
 }
