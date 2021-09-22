@@ -9,10 +9,22 @@ function UserPosts(props) {
             <p>{post.title}</p>
             <p>{post.body}</p>
           </div>
-          <button className={styles.btnExpand}>Expand</button>
+          <button
+            className= "btn"
+            onClick={props.expandClickMethod.bind(null, post.id)}
+          >
+            Expand
+          </button>
         </div>
       ))}
-      <button className={styles.btnUser} onClick={props.userClickMethod.bind(null,null)}>... Load All</button>
+      {
+        <button
+          className={styles.btnUser}
+          onClick={props.userClickMethod.bind(null, null)}
+        >
+          Load All
+        </button>
+      }
     </div>
   );
 }
