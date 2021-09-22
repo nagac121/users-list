@@ -12,13 +12,11 @@ function App() {
 
   const fetchUsers = useCallback(async () => {
     setIsDataLoading(true);
-
     try {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/users"
       );
       const data = await response.json();
-      setIsDataLoading(false);
       let usersList = [];
       for (const user of data) {
         usersList.push({
@@ -26,6 +24,7 @@ function App() {
           name: user.name,
         });
       }
+      setIsDataLoading(false);
       setUsers(usersList);
     } catch (error) {
       // setError(error);
@@ -43,7 +42,6 @@ function App() {
       "https://jsonplaceholder.typicode.com/posts"
     );
     const postsRes = await fetchedPosts.json();
-    setIsDataLoading(false);
     let postsList = [];
     const userPosts = postsRes.filter((post) => id === post.userId);
     for (let post of userPosts) {
@@ -53,18 +51,27 @@ function App() {
       });
     }
     console.log("userPosts: ", userPosts);
+    setIsDataLoading(false);
     setPosts(userPosts);
   }, []);
 
   return (
     <div className="App">
-      <UsersList
-        users={users}
-        userClickMethod={onUserClick}
-        activeUser={activeUser}
-      />
+      {/* display users list */}
+      {isDataLoading && (
+        <div className={"spinner"}>Please wait, data is loading ... </div>
+      )}
+      {!isDataLoading && (
+        <UsersList
+          users={users}
+          userClickMethod={onUserClick}
+          activeUser={activeUser}
+        />
+      )}
       {/* display user detail */}
-      {isDataLoading && <div className={"spinner"}>Please wait, data is loading ... </div>}
+      {isDataLoading && (
+        <div className={"spinner"}>Please wait, data is loading ... </div>
+      )}
       {!isDataLoading && <PostsList postsList={posts} />}
     </div>
   );
