@@ -20,6 +20,7 @@ function UserPosts(props) {
       {
         <button
           className={styles.btnUser}
+          style={{ display: props.enableLoadBtnFlag ? "block" : "none" }}
           onClick={props.userClickMethod.bind(null, null)}
         >
           Load All

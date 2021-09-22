@@ -15,6 +15,7 @@ function App() {
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [comments, setComments] = useState([]);
+  const [enableLoadBtn, setEnableLoadBtn] = useState(false);
 
   const fetchUsers = useCallback(async () => {
     setAreUsersLoading(true);
@@ -39,11 +40,11 @@ function App() {
 
   useEffect(() => {
     fetchUsers();
+    setEnableLoadBtn(false);
   }, [fetchUsers]);
 
   const onUserClick = useCallback(
     async (userId) => {
-      console.log("userId: ", userId);
       if (userId) {
         let userPosts = [];
         setActiveUser(userId);
@@ -54,7 +55,6 @@ function App() {
         const postsRes = await fetchedPosts.json();
         const filteredArr = postsRes.filter((post) => userId === post.userId);
         setFilteredPosts(filteredArr);
-        console.log("filteredPosts: ", filteredPosts);
         if (filteredArr.length < 3) {
           userPosts = filteredArr;
         } else {
@@ -65,8 +65,10 @@ function App() {
         }
         setAreUserPostsLoading(false);
         setUserPosts(userPosts);
+        setEnableLoadBtn(true);
       } else {
         setUserPosts(filteredPosts);
+        setEnableLoadBtn(false);
       }
     },
     [filteredPosts]
@@ -75,13 +77,11 @@ function App() {
     setModalIsOpen(false);
   }
   const onClickExpand = useCallback(async (postId) => {
-    console.log("postId: ", postId);
     setModalIsOpen(true);
     const res = await fetch(
       `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
     );
     const commentsJson = await res.json();
-    console.log("commentsJson: ", commentsJson);
     setComments(commentsJson);
   }, []);
 
@@ -107,6 +107,7 @@ function App() {
           userPosts={userPosts}
           userClickMethod={onUserClick}
           expandClickMethod={onClickExpand}
+          enableLoadBtnFlag={enableLoadBtn}
         />
       )}
       {modalIsOpen && (

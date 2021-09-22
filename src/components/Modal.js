@@ -1,5 +1,4 @@
 function Modal(props) {
-  console.log("comments data: ",props.commentsData)
   function cancelHandler() {
     props.onCancel();
   }
