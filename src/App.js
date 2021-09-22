@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import UsersList from "./components/UsersList";
-import PostsList from "./components/PostsList";
+import UserPosts from "./components/UserPosts";
 
 import "./App.css";
 
@@ -9,9 +9,10 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [activeUser, setActiveUser] = useState(null);
   const [isDataLoading, setIsDataLoading] = useState(false);
+  const [areUsersLoading, setAreUsersLoading] = useState(false);
 
   const fetchUsers = useCallback(async () => {
-    setIsDataLoading(true);
+    setAreUsersLoading(true);
     try {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/users"
@@ -24,7 +25,7 @@ function App() {
           name: user.name,
         });
       }
-      setIsDataLoading(false);
+      setAreUsersLoading(false);
       setUsers(usersList);
     } catch (error) {
       // setError(error);
@@ -60,10 +61,10 @@ function App() {
   return (
     <div className="App">
       {/* display users list */}
-      {isDataLoading && (
-        <div className={"spinner"}>Please wait, data is loading ... </div>
+      {areUsersLoading && (
+        <div className={"spinner"}>Please wait, "users" are loading...</div>
       )}
-      {!isDataLoading && (
+      {!areUsersLoading && (
         <UsersList
           users={users}
           userClickMethod={onUserClick}
@@ -72,9 +73,9 @@ function App() {
       )}
       {/* display user detail */}
       {isDataLoading && (
-        <div className={"spinner"}>Please wait, data is loading ... </div>
+        <div className={"spinner"}>Please wait, "user posts" are loading... </div>
       )}
-      {!isDataLoading && <PostsList postsList={posts} />}
+      {!isDataLoading && <UserPosts UserPosts={posts} />}
     </div>
   );
 }

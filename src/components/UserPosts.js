@@ -1,9 +1,9 @@
-import styles from "./PostsList.module.css";
+import styles from "./UserPosts.module.css";
 
-function PostsList(props) {
+function UserPosts(props) {
   return (
     <div className={styles.posts}>
-      {props.postsList.map((post) => (
+      {props.UserPosts.map((post) => (
         <div key={post.id} className={styles.postButton}>
           <div className={styles.post}>
             <p>{post.title}</p>
@@ -15,4 +15,4 @@ function PostsList(props) {
     </div>
   );
 }
-export default PostsList;
+export default UserPosts;
