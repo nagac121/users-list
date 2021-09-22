@@ -17,6 +17,7 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [comments, setComments] = useState([]);
   const [enableLoadBtn, setEnableLoadBtn] = useState(false);
+  const [areCommentsLoading, setAreCommentsLoading] = useState(false);
 
   const fetchUsers = useCallback(async () => {
     setAreUsersLoading(true);
@@ -79,11 +80,13 @@ function App() {
   }
   const onClickExpand = useCallback(async (postId) => {
     setModalIsOpen(true);
+    setAreCommentsLoading(true);
     const res = await fetch(
       `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
     );
     const commentsJson = await res.json();
     setComments(commentsJson);
+    setAreCommentsLoading(false);
   }, []);
 
   return (
@@ -120,6 +123,7 @@ function App() {
           onCancel={closeModalHandler}
           onConfirm={closeModalHandler}
           commentsData={comments}
+          commentsLoading = {areCommentsLoading}
         />
       )}
       {modalIsOpen && <Backdrop onCancel={closeModalHandler} />}

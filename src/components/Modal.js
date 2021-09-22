@@ -1,3 +1,5 @@
+import LoadingSpinner from "./LoadingSpinner";
+
 function Modal(props) {
   function cancelHandler() {
     props.onCancel();
@@ -10,13 +12,15 @@ function Modal(props) {
   return (
     <div className="modal">
       <p className="comment-heading">Comments</p>
-      {props.commentsData.map((comment) => (
-        <div key={comment.id} className="comment">
-          <div>{comment.name}</div>
-          <div>{comment.email}</div>
-          <div>{comment.body}</div>
-        </div>
-      ))}
+      {props.commentsLoading && <LoadingSpinner />}
+      {!props.commentsLoading &&
+        props.commentsData.map((comment) => (
+          <div key={comment.id} className="comment">
+            <div>{comment.name}</div>
+            <div>{comment.email}</div>
+            <div>{comment.body}</div>
+          </div>
+        ))}
       <button className="btn btn--alt" onClick={cancelHandler}>
         Cancel
       </button>
