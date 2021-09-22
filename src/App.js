@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import UsersList from "./components/UsersList";
+import UserList from "./components/UserList";
 import UserPosts from "./components/UserPosts";
 import Modal from "./components/Modal";
 import Backdrop from "./components/Backdrop";
@@ -45,21 +45,22 @@ function App() {
     async (userId) => {
       console.log("userId: ", userId);
       if (userId) {
+        let userPosts = [];
         setActiveUser(userId);
         setAreUserPostsLoading(true);
         const fetchedPosts = await fetch(
           "https://jsonplaceholder.typicode.com/posts"
         );
         const postsRes = await fetchedPosts.json();
-        setFilteredPosts(postsRes.filter((post) => userId === post.userId));
+        const filteredArr = postsRes.filter((post) => userId === post.userId);
+        setFilteredPosts(filteredArr);
         console.log("filteredPosts: ", filteredPosts);
-        let userPosts = [];
-        if (filteredPosts.length < 3) {
-          userPosts = filteredPosts;
+        if (filteredArr.length < 3) {
+          userPosts = filteredArr;
         } else {
           userPosts = [];
           for (let i = 0; i < 3; i++) {
-            userPosts.push(filteredPosts[i]);
+            userPosts.push(filteredArr[i]);
           }
         }
         setAreUserPostsLoading(false);
@@ -90,7 +91,7 @@ function App() {
         <div className={"spinner"}>Please wait, "users" are loading...</div>
       )}
       {!areUsersLoading && (
-        <UsersList
+        <UserList
           users={users}
           userClickMethod={onUserClick}
           activeUser={activeUser}

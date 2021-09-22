@@ -10,7 +10,7 @@ function UserPosts(props) {
             <p>{post.body}</p>
           </div>
           <button
-            className= "btn"
+            className="btn"
             onClick={props.expandClickMethod.bind(null, post.id)}
           >
             Expand

@@ -1,6 +1,6 @@
 import styles from "./UserList.module.css";
 
-function UsersList(props) {
+function UserList(props) {
   return (
     <div>
       {props.users.map((user) => (
@@ -17,4 +17,4 @@ function UsersList(props) {
     </div>
   );
 }
-export default UsersList;
+export default UserList;
