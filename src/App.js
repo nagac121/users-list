@@ -5,6 +5,7 @@ import Modal from "./components/Modal";
 import Backdrop from "./components/Backdrop";
 
 import "./App.css";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -88,7 +89,10 @@ function App() {
   return (
     <div className="App">
       {areUsersLoading && (
-        <div className={"spinner"}>Please wait, "users" are loading...</div>
+        <div className={"spinner"}>
+          <LoadingSpinner />
+          {/* Please wait, "users" are loading... */}
+        </div>
       )}
       {!areUsersLoading && (
         <UserList
@@ -99,7 +103,8 @@ function App() {
       )}
       {areUserPostsLoading && (
         <div className={"spinner"}>
-          Please wait, "user posts" are loading...{" "}
+          {/* Please wait, "user posts" are loading... */}
+          <LoadingSpinner />
         </div>
       )}
       {!areUserPostsLoading && (
