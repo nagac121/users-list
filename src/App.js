@@ -6,10 +6,11 @@ import "./App.css";
 
 function App() {
   const [users, setUsers] = useState([]);
-  const [posts, setPosts] = useState([]);
+  const [userPosts, setUserPosts] = useState([]);
   const [activeUser, setActiveUser] = useState(null);
   const [isDataLoading, setIsDataLoading] = useState(false);
   const [areUsersLoading, setAreUsersLoading] = useState(false);
+  const [filteredPosts, setFilteredPosts] = useState([]);
 
   const fetchUsers = useCallback(async () => {
     setAreUsersLoading(true);
@@ -37,26 +38,31 @@ function App() {
   }, [fetchUsers]);
 
   const onUserClick = useCallback(async (id) => {
-    setActiveUser(id);
-    setIsDataLoading(true);
-    const fetchedPosts = await fetch(
-      "https://jsonplaceholder.typicode.com/posts"
-    );
-    const postsRes = await fetchedPosts.json();
-    const filteredPosts = postsRes.filter((post) => id === post.userId);
-    console.log("filteredPosts: ", filteredPosts);
-    let userPosts = [];
-    if (filteredPosts.length < 3) {
-      userPosts = filteredPosts;
-    } else {
-      userPosts = [];
-      for (let i = 0; i < 3; i++) {
-        userPosts.push(filteredPosts[i]);
+    console.log("id: ", id);
+    if (id) {
+      setActiveUser(id);
+      setIsDataLoading(true);
+      const fetchedPosts = await fetch(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
+      const postsRes = await fetchedPosts.json();
+      setFilteredPosts(postsRes.filter((post) => id === post.userId));
+      console.log("filteredPosts: ", filteredPosts);
+      let userPosts = [];
+      if (filteredPosts.length < 3) {
+        userPosts = filteredPosts;
+      } else {
+        userPosts = [];
+        for (let i = 0; i < 3; i++) {
+          userPosts.push(filteredPosts[i]);
+        }
       }
+      setIsDataLoading(false);
+      setUserPosts(userPosts);
+    } else {
+      setUserPosts(filteredPosts);
     }
-    setIsDataLoading(false);
-    setPosts(userPosts);
-  }, []);
+  }, [filteredPosts]);
 
   return (
     <div className="App">
@@ -73,9 +79,13 @@ function App() {
       )}
       {/* display user detail */}
       {isDataLoading && (
-        <div className={"spinner"}>Please wait, "user posts" are loading... </div>
+        <div className={"spinner"}>
+          Please wait, "user posts" are loading...{" "}
+        </div>
       )}
-      {!isDataLoading && <UserPosts UserPosts={posts} />}
+      {!isDataLoading && (
+        <UserPosts userPosts={userPosts} userClickMethod={onUserClick} />
+      )}
     </div>
   );
 }

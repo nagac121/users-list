@@ -1,6 +1,8 @@
-.posts{
+.userPosts {
+  display: flex;
+  flex-direction: column;
   margin: 50px;
-  width: 90%;
+  text-align: center;
 }
 .post {
   background-color: cornflowerblue;
@@ -10,7 +12,17 @@
   width: 80%;
 }
 
-.postButton{
-  display: flex;
+.userPost {
   align-items: center;
+  display: flex;
+}
+.btnExpand {
+  font-size: 20px;
+  padding: 4px;
+}
+.btnUser {
+  align-self: flex-end;
+  font-size: 20px;
+  margin-right: 300px;
+  padding: 6px;
 }
