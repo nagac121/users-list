@@ -42,15 +42,17 @@ function App() {
       "https://jsonplaceholder.typicode.com/posts"
     );
     const postsRes = await fetchedPosts.json();
-    let postsList = [];
-    const userPosts = postsRes.filter((post) => id === post.userId);
-    for (let post of userPosts) {
-      postsList.push({
-        title: post.title,
-        body: post.body,
-      });
+    const filteredPosts = postsRes.filter((post) => id === post.userId);
+    console.log("filteredPosts: ", filteredPosts);
+    let userPosts = [];
+    if (filteredPosts.length < 3) {
+      userPosts = filteredPosts;
+    } else {
+      userPosts = [];
+      for (let i = 0; i < 3; i++) {
+        userPosts.push(filteredPosts[i]);
+      }
     }
-    console.log("userPosts: ", userPosts);
     setIsDataLoading(false);
     setPosts(userPosts);
   }, []);
