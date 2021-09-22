@@ -14,6 +14,7 @@ function App() {
   const [areUsersLoading, setAreUsersLoading] = useState(false);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [comments, setComments] = useState([]);
 
   const fetchUsers = useCallback(async () => {
     setAreUsersLoading(true);
@@ -41,16 +42,16 @@ function App() {
   }, [fetchUsers]);
 
   const onUserClick = useCallback(
-    async (id) => {
-      console.log("id: ", id);
-      if (id) {
-        setActiveUser(id);
+    async (userId) => {
+      console.log("userId: ", userId);
+      if (userId) {
+        setActiveUser(userId);
         setAreUserPostsLoading(true);
         const fetchedPosts = await fetch(
           "https://jsonplaceholder.typicode.com/posts"
         );
         const postsRes = await fetchedPosts.json();
-        setFilteredPosts(postsRes.filter((post) => id === post.userId));
+        setFilteredPosts(postsRes.filter((post) => userId === post.userId));
         console.log("filteredPosts: ", filteredPosts);
         let userPosts = [];
         if (filteredPosts.length < 3) {
@@ -72,9 +73,16 @@ function App() {
   function closeModalHandler() {
     setModalIsOpen(false);
   }
-  const onClickExpand = () => {
+  const onClickExpand = useCallback(async (postId) => {
+    console.log("postId: ", postId);
     setModalIsOpen(true);
-  };
+    const res = await fetch(
+      `https://jsonplaceholder.typicode.com/comments?postId=${postId}`
+    );
+    const commentsJson = await res.json();
+    console.log("commentsJson: ", commentsJson);
+    setComments(commentsJson);
+  }, []);
 
   return (
     <div className="App">
@@ -101,7 +109,11 @@ function App() {
         />
       )}
       {modalIsOpen && (
-        <Modal onCancel={closeModalHandler} onConfirm={closeModalHandler} />
+        <Modal
+          onCancel={closeModalHandler}
+          onConfirm={closeModalHandler}
+          commentsData={comments}
+        />
       )}
       {modalIsOpen && <Backdrop onCancel={closeModalHandler} />}
     </div>

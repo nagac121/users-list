@@ -1,23 +1,24 @@
 .App {
-  /* text-align: center; */
   margin: 20px;
 }
-.spinner{
+.spinner {
   margin: 30px;
   font: 30px bold;
 }
-
+/* MODAL STYLES */
 .modal {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   background-color: white;
+  left: calc(50% - 15rem);
+  overflow: scroll;
   padding: 1rem;
+  position: fixed;
   text-align: center;
+  top: 20vh;
   width: 30rem;
   z-index: 10;
-  position: fixed;
-  top: 20vh;
-  left: calc(50% - 15rem);
+  height: 400px;
 }
 
 .backdrop {
@@ -28,4 +29,18 @@
   height: 100vh;
   top: 0;
   left: 0;
+}
+
+.comment {
+  background-color: cornflowerblue;
+  border: 1px solid blue;
+  color: white;
+  margin: 5px;
+  padding: 5px;
+}
+.comment-heading{
+  background-color: rgb(84, 84, 179);
+  color: white;
+  font-size: x-large;
+  padding: 10px;
 }

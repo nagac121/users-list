@@ -1,24 +1,31 @@
 function Modal(props) {
-    function cancelHandler() {
-      props.onCancel();
-    }
-  
-    function confirmHandler() {
-      props.onConfirm();
-    }
-  
-    return (
-      <div className='modal'>
-        <p>Are you sure?</p>
-        <button className='btn btn--alt' onClick={cancelHandler}>
-          Cancel
-        </button>
-        <button className='btn' onClick={confirmHandler}>
-          Confirm
-        </button>
-      </div>
-    );
+  console.log("comments data: ",props.commentsData)
+  function cancelHandler() {
+    props.onCancel();
   }
-  
-  export default Modal;
-  
+
+  function confirmHandler() {
+    props.onConfirm();
+  }
+
+  return (
+    <div className="modal">
+      <p className="comment-heading">Comments</p>
+      {props.commentsData.map((comment) => (
+        <div key={comment.id} className="comment">
+          <div>{comment.name}</div>
+          <div>{comment.email}</div>
+          <div>{comment.body}</div>
+        </div>
+      ))}
+      <button className="btn btn--alt" onClick={cancelHandler}>
+        Cancel
+      </button>
+      <button className="btn" onClick={confirmHandler}>
+        Confirm
+      </button>
+    </div>
+  );
+}
+
+export default Modal;
