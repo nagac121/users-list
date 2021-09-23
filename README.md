@@ -13,7 +13,7 @@ CSS
 ```
 
 # Steps to run the application
-1. git clone https://github.com/nagac121/users-list.git
-2. cd project directory
-3. npm i
-4. npm start
+1. Download the application using `git clone https://github.com/nagac121/users-list.git`
+2. change to poject directory
+3. Install project `npm i`
+4. Run application `npm start`
