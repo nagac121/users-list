@@ -1,8 +1,8 @@
 # Project Description
 Users, posts and their related comments are displayed with naivgation facility.
 
-Users are displayed using https://jsonplaceholder.typicode.com/users
-Posts by each user is retrieved by using https://jsonplaceholder.typicode.com/posts
+Users are displayed using https://jsonplaceholder.typicode.com/users<br/>
+Posts by each user is retrieved by using https://jsonplaceholder.typicode.com/posts<br/>
 comments under each post is identified using https://jsonplaceholder.typicode.com/comments?postId=1
 
 # Environment
